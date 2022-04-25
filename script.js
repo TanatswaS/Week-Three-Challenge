@@ -52,4 +52,57 @@ function generatePassword() {
   var numbers;
   var specialChar;
 
-  
+  //initialize characters
+  passwordLength = 0;
+  pswdCriteria.pswdLength = 0;
+  result = "";
+
+  //check password length
+  while (passwordLength < 8 || passwordLength > 128) {
+    passwordLength = prompt("How many characters do you want your password to be? \nPassword must be between 8 and 128 characters.");
+
+    if (passwordLength === null) {
+      return "Your secure password";
+    }
+    else {
+      
+      if (!isFinite(passwordLength)) {
+        alert("You did not enter a number");
+        return "Your secure password";
+      }
+      else {
+        
+        if (passwordLength < 8 || passwordLength > 128) {
+          alert("Password must be between 8 and 128 characters.");
+          return "Your secure password";
+        }
+        else {
+
+          //call the internal function to show prompts for criteria
+          showPrompts();
+
+          //keep adding characters based on criteria until pwdLength is = to the length the user set
+          while (pswdCriteria.pswdLength < passwordLength) {
+            //if statement to make sure the user selects at least one of the criteria  
+            if (lowerCase === false && upperCase === false && numbers === false && specialChar === false) {
+              alert("You must select at least one criteria of lowercase, uppercase, numbers or special characters")
+              showPrompts();
+            }
+            else {
+              //if the user selected lowercase and there is still room to add characters then
+              //randomly grab a lowercase letter from the array and add it to the end of result 
+              //update pwdLength by 1
+              if (lowerCase === true && pswdCriteria.pswdLength < passwordLength) {
+                var lc = pswdCriteria.pswdLowerCase[Math.floor(Math.random() * 26)]
+                result = result + lc;
+                pswdCriteria.pwdLength++;
+              }
+
+              //if the user selected a special character and there is still room to add characters then
+              //randomly grab a apecial character from the array and add it to the end of result 
+              //update pwdLength by 1              
+              if (specialChar === true && pswdCriteria.pswdLength < passwordLength) {
+                var sc = pswdCriteria.pswdCharacter[Math.floor(Math.random() * 32)]
+                result = result + sc;
+                pswdCriteria.pswdLength++;
+              }
