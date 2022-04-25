@@ -65,7 +65,7 @@ function generatePassword() {
       return "Your secure password";
     }
     else {
-      
+      //checking user enters an integer
       if (!isFinite(passwordLength)) {
         alert("You did not enter a number");
         return "Your secure password";
@@ -106,3 +106,32 @@ function generatePassword() {
                 result = result + sc;
                 pswdCriteria.pswdLength++;
               }
+
+              //if the user selected an uppercase letter and there is still room to add characters then
+              //randomly grab an uppercase letter from the array and add it to the end of result 
+              //update pwdLength by 1
+              if (upperCase === true && pswdCriteria.pswdLength < passwordLength) {
+                var uc = pswdCriteria.pswdUpperCase[Math.floor(Math.random() * 26)]
+                result = result + uc;
+                pswdCriteria.pswdLength++;
+              }
+
+              //if the user selected a number and there is still room to add characters then
+              //randomly grab a number from the array and add it to the end of result 
+              //update pwdLength by 1
+              if (numbers === true && pswdCriteria.pswdLength < passwordLength) {
+                var num = pswdCriteria.pswdNumber[Math.floor(Math.random() * 10)]
+                result = result + num;
+                pswdCriteria.pswdLength++;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    //return the generated password back to the calling function
+    return result;
+
+   
+
